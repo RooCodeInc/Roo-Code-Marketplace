@@ -25,10 +25,10 @@ This guide explains how to create and share Modes, MCPs, and Prompts to Roo Code
 
 ### Directory Structure
 
-The `registry` structure could be the root or placed in a sub-directory of any `git` repository, a sample structure for a registry is:
+The `registry` structure could be the root or placed in a `registry` directory of any `git` repository, a sample structure for a registry is:
 
 ```
-registry-root/
+registry/
 ├── metadata.en.yml               # Required metadata for the registry
 │
 ├── modes/                        # `mode` items
