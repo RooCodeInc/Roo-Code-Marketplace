@@ -12,123 +12,75 @@ This guide explains how to create and share Modes, MCPs, and Prompts to Roo Code
 
 [Learn more about using Roo Code Marketplace](https://github.com/Smartsheet-JB-Brown/Roo-Code/blob/jbbrown/marketplace/cline_docs/marketplace/README.md)
 
-## Item Structure and Metadata
+## Item Structure, Metadata, and Features
 
-Each item in the Marketplace requires specific metadata files and follows a consistent directory structure.
+### Overview
+
+* Every component on the registry is an `item`.
+* An `item` can be of type: `mcp`, `mode`, `prompt`, `package`
+* Each item apart from `package` is a singular object, i.e: one mode, one mcp server.
+* A `package` contains multiple other `item`s
+  * All internal sub-items of a `package` is contained in the binary on the `package` item metadata itself.
+* Each `item` requires specific metadata files and follows a consistent directory structure.
 
 ### Directory Structure
 
-The basic structure for a package is:
+The `registry` structure could be the root or placed in a sub-directory of any `git` repository, a sample structure for a registry is:
 
 ```
-package-name/
-├── metadata.en.yml       # Required metadata file (English)
-├── metadata.fr.yml       # Optional localized metadata (French)
-├── README.md             # Documentation for the package
-├── modes/                # Directory for mode components
-│   └── my-mode/
+registry-root/
+├── metadata.en.yml               # Required metadata for the registry
+│
+├── modes/                        # `mode` items
+│   └── a-mode-name/
 │       └── metadata.en.yml
-├── mcp servers/          # Directory for MCP server components
-│   └── my-server/
-│       └── metadata.en.yml
-└── prompts/              # Directory for prompt components
-    └── my-prompt/
-        └── metadata.en.yml
+├── mcps/                         # `mcp` items
+├── prompts/                      # `prompt` items
+│
+└── packages/                     # `package` items
+    └── a-package-name/
+        ├── metadata.en.yml       # Required metadata
+        ├── metadata.fr.yml       # Optional localized metadata (French)
+        ├── modes/                # `a-package-name`'s internal `mode` items
+        │   └── my-mode/
+        │       └── metadata.en.yml
+        ├── mcps/                 # `a-package-name`'s internal `mcp` items
+        │   └── my-server/
+        │       └── metadata.en.yml
+        └── prompts/              # `a-package-name`'s internal `prompt` items
+            └── my-prompt/
+                └── metadata.en.yml
 ```
 
 ### Metadata File Format
 
 Metadata files use YAML format and must include specific fields:
 
+#### `registry`:
+```yaml
+name: "My Registry"
+description: "A concise description for your registry"
+version: "0.0.0"
+author: "your name" # optional
+authorUrl: "http://your.profile.url/" # optional
+```
+
+#### `item`:
 ```yaml
 name: "My Package"
-description: "A detailed description of what this package does"
-version: "1.0.0"
+description: "A concise description for your package"
+version: "0.0.0"
 type: "package" # One of: package, mode, mcp server, prompt
+sourceUrl: "https://url.to/source-repository" # Optional
+binaryUrl: "https://url.to/binary.zip"
+binaryHash: "SHA256-of-binary"
+binarySource: "https://proof.of/source" # Optional, proof-of-source for the binary (tag/hash reference, build job, etc)
 tags:
     - tag1
     - tag2
-items: # Only for packages AND when a subcomponent isn't located in the packages directory tree
-    - type: "prompt"
-      path: "../shared-prompts/data-analysis" # Reference to component outside package directory
 author: "your name" # optional
-authorUrl: "http://your.profile.url/" #optional
+authorUrl: "http://your.profile.url/" # optional
 ```
-
-### Package Example in Source Tree
-
-Here's how a package might look in the actual source tree:
-
-```
-Roo-Code-Packages/
-├── shared-prompts/                # Shared prompts directory
-│   └── data-analysis/
-│       └── metadata.en.yml
-│
-└── data-toolkit/                  # Your package directory
-    ├── metadata.en.yml            # Package metadata
-    ├── metadata.fr.yml            # Localized metadata
-    ├── README.md                  # Documentation
-    ├── modes/                     # Modes directory
-    │   └── data-analyst/
-    │       └── metadata.en.yml
-    └── mcp servers/               # MCP servers directory
-        └── data-processor/
-            └── metadata.en.yml
-```
-
-### Required Fields
-
-- **name**: A clear, descriptive name for your component
-- **description**: A detailed explanation of what your component does
-- **version**: Semantic version number (e.g., "1.0.0")
-- **type**: Component type (one of: "package", "mode", "mcp server", "prompt")
-- **tags**: (Optional) Array of relevant tags for filtering
-- **items**: (Only for packages) Array of subcomponents with their type and path - when the path is not in the packages directory
- tree
-- **author**: Your name
-- **authorUrl**: A proile Url that you want people to see. GitHub profile, or linked-in profile for example
-- **sourceUrl**: optional destination Url to your item's source if you haven't included it directly in the Marketplace.
-
-### The Items Array and External References
-
-The `items` array in a package's metadata serves only one important purposes:
-
-**External Component References**: It allows referencing components that exist outside the package's directory tree.
-
-Components that are within the package's directory tree are implicitly included and will be found at runtime.
-
-#### Referencing External Components
-
-You can reference components from anywhere in the repository by using relative paths:
-
-```yaml
-items:
-    # Component within the package directory
-    - type: "mode"
-      path: "modes/my-mode"
-
-    # Component outside the package directory (using relative path)
-    - type: "prompt"
-      path: "../shared-prompts/data-analysis"
-
-    # Component from a completely different part of the repository
-    - type: "mcp server"
-      path: "../../other-category/useful-server"
-```
-
-This allows you to:
-
-- Create shared components that can be used by multiple packages
-- Organize components logically while maintaining package relationships
-- Reference existing components without duplicating them
-
-#### How It Works
-
-- The `path` is relative to the package's directory
-- The Marketplace resolves these paths when loading the package
-- Components referenced this way appear as part of the package in the UI
-- The same component can be included in multiple packages
 
 ### Localization Support
 
@@ -141,6 +93,14 @@ You can provide metadata in multiple languages by using locale-specific files:
 - If the user's locale is not available, it will fall back to English
 - The English locale (`metadata.en.yml`) is required as a fallback
 - Files without a locale code (e.g., just `metadata.yml`) are not supported
+
+### Configurable Support
+
+Powered with [**`Roo Rocket`**](https://github.com/NamesMT/roo-rocket), the registry supports configurable items like:
++ `mcp` with access token inputs.
++ `mode` / `prompt` with feature flags.
++ And further customizations that a creator can imagine.
+  + E.g: a `package` could prompts you for where should their context folder should be located.
 
 ## Contributing Process
 
@@ -161,12 +121,12 @@ git clone https://github.com/YOUR-USERNAME/Roo-Code-Marketplace.git
 cd Roo-Code-Marketplace
 ```
 
-### 3. Create Your Package
+### 3. Create Your Item
 
-1. Create a new directory for your package with an appropriate name
-2. Add the required metadata files and component directories
+1. Create a new directory for your item with an appropriate name
+2. Add the required metadata files (and subitem directories for `package`)
 3. Follow the structure and format described above
-4. Add documentation in a README.md file
+4. Add `sourceUrl` that points to a repository or post with info/document for the item.
 
 Example of creating a simple package:
 

@@ -1,0 +1,10 @@
+name: "Maestro"
+description: "A collection of highly specialized Roo modes designed to work together as an integrated system. Each mode is an expert in a specific domain, with clear responsibilities, boundaries, and collaboration protocols."
+type: "package"
+version: "0.0.20250502"
+sourceUrl: "https://github.com/NamesMT/rm-samples/tree/maestro"
+binaryUrl: "https://github.com/NamesMT/rm-samples/releases/download/sample/maestro.zip"
+binaryHash: "bCvjMZjzDMKUo07MWCZMq139cuyooTxWAx1Cxc_2Zyk"
+tags: ["specialized"]
+author: "shariqriazz"
+authorUrl: https://github.com/shariqriazz

@@ -1,7 +1,0 @@
-name: "Smartsheet MCP - Project Management"
-description: "Track and update your tasks and assignments, and update status for your team's work in Roo."
-type: "mcp server"
-version: "1.0.0"
-tags: ["Project Management", "Agile", "Work Managemnt", "Tasks", "Team", "Spreadsheet", "Kanban"]
-author: "Smartsheet"
-url: "https://github.com/smar-imran-khawaja/smar-mcp"

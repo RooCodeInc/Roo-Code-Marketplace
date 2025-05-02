@@ -1,9 +1,0 @@
-name: "Project Manager Package"
-description: "An experienced software Project Manager who excels at amplifying positive impact through effective team coordination and resource allocation"
-type: "package"
-version: "1.0.0"
-tags: ["Project Management", "Agile", "Work Managemnt", "Tasks", "Team", "Spreadsheet", "Kanban"]
-author: "Smartsheet"
-items:
-  - type: "mcp server"
-    path: "../../mcp servers/Smartsheet"

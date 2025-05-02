@@ -1,0 +1,9 @@
+name: "Brave Search (npx)"
+description: "The \"Brave Search\" MCP"
+type: "mcp"
+version: "0.1.0"
+binaryUrl: "https://github.com/NamesMT/config-packs/releases/download/v0.0.0/roo-brave-search-mcp.zip"
+binaryHash: "kN1uFyQS-K4ELyAFMP8orNpxTibQfEOi1v2Hq_d-gNg"
+sourceUrl: "https://github.com/NamesMT/config-packs"
+tags: ["Brave", "MCP"]
+author: "NamesMT"
