@@ -100,7 +100,7 @@ Powered with [**`Roo Rocket`**](https://github.com/NamesMT/roo-rocket), the regi
 + `mcp` with access token inputs.
 + `mode` / `prompt` with feature flags.
 + And further customizations that a creator can imagine.
-  + E.g: a `package` could prompts you for where should their context folder should be located.
+  + E.g: a `package` could prompt you for the location of its context folder.
 
 ## Contributing Process
 
