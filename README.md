@@ -70,7 +70,7 @@ authorUrl: "http://your.profile.url/" # optional
 name: "My Package"
 description: "A concise description for your package"
 version: "0.0.0"
-type: "package" # One of: package, mode, mcp server, prompt
+type: "package" # One of: package, mode, mcp, prompt
 sourceUrl: "https://url.to/source-repository" # Optional
 binaryUrl: "https://url.to/binary.zip"
 binaryHash: "SHA256-of-binary"
@@ -187,9 +187,11 @@ After submitting your pull request:
 - **Semantic Versioning**: Follow semantic versioning for version numbers
 - **Consistent Naming**: Use clear, descriptive names for components
 
-## Example Package
+## Example package metadatas
 
-Here's a comprehensive example of a data science package that includes both internal components and references to external components:
+### Data Science Toolkit
+
+Here's an example of a data science package:
 
 **data-science-toolkit/metadata.en.yml**:
 
@@ -204,14 +206,6 @@ tags:
     - analysis
     - visualization
     - machine learning
-items:
-    # External components (outside this package directory)
-    - type: "prompt"
-      path: "../shared-prompts/data-cleaning"
-    - type: "mcp server"
-      path: "../../ml-tools/model-trainer"
-    - type: "mode"
-      path: "../visualization-tools/chart-creator-mode"
 ```
 
 **data-science-toolkit/modes/data-scientist-mode/metadata.en.yml**:
@@ -227,7 +221,7 @@ tags:
     - analysis
 ```
 
-**shared-prompts/data-cleaning/metadata.en.yml**:
+**data-science-toolkit/prompts/data-cleaning/metadata.en.yml**:
 
 ```yaml
 name: "Data Cleaning Prompt"
@@ -241,6 +235,7 @@ tags:
 ```
 
 ---
+
 # Adding Custom Marketplace Sources
 
 The Marketplace allows you to extend its functionality by adding custom sources. This guide explains how to set up and manage your own Marktplace repositories to access additional components beyond the default offerings.
@@ -255,21 +250,27 @@ A Marketplace source repository is a Git repository that contains Marketplace it
 2. **Valid Metadata**: Each package must include properly formatted metadata files
 3. **Git Repository**: The source must be a Git repository accessible via HTTPS
 
-### Creating a New Repository
+### Building your registry repository
+
+#### Start from a sample registry repository
+
+Check the branches of the [**rm-samples**](https://github.com/NamesMT/rm-samples) repository here.
+
+#### Creating a New Repository
 
 1. Create a new repository on GitHub, GitLab, or another Git hosting service
 2. Initialize the repository with a README.md file
 3. Clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/your-username/your-package-repo.git
-cd your-package-repo
+git clone https://github.com/your-username/your-registry-repo.git
+cd your-registry-repo
 ```
 
-4. Create the basic repository structure:
+4. Create the basic registry structure:
 
 ```bash
-mkdir -p packages modes "mcp servers" prompts
+mkdir -p packages modes mcps prompts
 touch metadata.en.yml
 ```
 
@@ -288,55 +289,6 @@ git add .
 git commit -m "Initialize package repository structure"
 git push origin main
 ```
-
-## Required Structure and Metadata
-
-A source repository must follow a specific structure to be properly recognized by the Marketplace:
-
-### Repository Structure
-
-```
-repository-root/
-├── metadata.en.yml           # Repository metadata
-├── README.md                 # Repository documentation
-├── packages/                 # Directory for package components
-│   ├── package-1/
-│   │   ├── metadata.en.yml   # Package metadata
-│   │   └── README.md
-│   └── package-2/
-│       ├── metadata.en.yml
-│       └── README.md
-├── modes/                    # Directory for mode components
-│   └── custom-mode/
-│       └── metadata.en.yml
-├── mcp servers/              # Directory for MCP server components
-│   └── custom-server/
-│       └── metadata.en.yml
-└── prompts/                  # Directory for prompt components
-    └── custom-prompt/
-        └── metadata.en.yml
-```
-
-### Repository Metadata
-
-The root `metadata.en.yml` file describes the repository itself:
-
-```yaml
-name: "Custom Roopository"
-description: "A collection of specialized components for data science workflows"
-version: "1.0.0"
-author: "Your Name or Organization"
-tags:
-    - custom
-    - data-science
-```
-
-### Item Organization
-
-- Item should be organized by type in their respective directories
-- Each item must have its own directory containing a metadata file
-- Items can be nested within packages as subcomponents
-- Follow the same structure as described in [Adding Packages](./05-adding-packages.md)
 
 ## Adding Sources to Roo Code
 
@@ -357,15 +309,15 @@ Roo Code comes with a default package source:
 4. Click the "Add Source" button
 5. Enter the repository URL:
     - Format: `https://github.com/username/repository.git`
-    - Example: `https://github.com/your-username/your-package-repo.git`
+    - Example: `https://github.com/your-username/your-registry-repo.git`
 6. Click "Add" to save the source
 
 ### Managing Sources
 
-The "Sources" tab provides several options for managing your package sources:
+The "Sources" tab provides several options for managing your registry sources:
 
 1. **Remove**: Delete a source from your configuration
-2. **Refresh**: Update the item list from a sources - this is forced git clone/pull to override local caching of data
+2. **Refresh**: Update the item list from a source - this is forced git clone/pull to override local caching of data
 
 ### Source Caching and Refreshing
 
