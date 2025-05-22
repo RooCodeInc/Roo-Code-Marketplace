@@ -1,4 +1,4 @@
-name: "Smartsheet Project Management"
+name: "Smartsheet Project Management Package"
 description: "Track and update your tasks and assignments, and update status for your team's work in Roo."
 type: "mcp"
 version: "1.0.0"
