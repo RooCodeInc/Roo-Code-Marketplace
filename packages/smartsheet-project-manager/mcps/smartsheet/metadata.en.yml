@@ -4,5 +4,6 @@ type: "mcp"
 version: "0.0.0"
 sourceUrl: "https://github.com/smar-sean-sekora/rm-samples"
 binaryUrl: "https://github.com/smar-sean-sekora/rm-samples/blob/main/binary/smartsheet-mcp.zip"
+binaryHash: "FTi7ZTdQto-OOG3YrWAn3grkQ_3H41iy3z00yd0P8vU"
 tags: ["project management", "agile", "work managemnt", "tasks", "team", "spreadsheet", "kanban"]
 author: "Smartsheet"
