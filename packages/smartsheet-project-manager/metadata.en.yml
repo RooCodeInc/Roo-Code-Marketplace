@@ -1,6 +1,10 @@
 name: "Project Manager by Smartsheet"
 description: "An experienced software Project Manager who excels at amplifying positive impact through effective team coordination and resource allocation, + deep integration with Smartsheet ecosystem"
 type: "package"
-version: "0.0.0"
-tags: ["project management", "agile", "work managemnt", "tasks", "team", "spreadsheet", "kanban"]
+version: "1.0.0"
+sourceUrl: "https://github.com/smar-sean-sekora/rm-samples"
+binaryUrl: "https://github.com/smar-sean-sekora/rm-samples/raw/86984ec/binary/smartsheet-mcp.zip"tags: ["project management", "agile", "work managemnt", "tasks", "team", "spreadsheet", "kanban"]
+binaryHash: "FTi7ZTdQto-OOG3YrWAn3grkQ_3H41iy3z00yd0P8vU"
+
 author: "Smartsheet"
+authorUrl: https://www.smartsheet.com
